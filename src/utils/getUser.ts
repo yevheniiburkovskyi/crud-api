@@ -9,9 +9,9 @@ export const getUser = (path: string, userData: User[]) => {
     if (validate(userId)) {
       return userData.find((item) => item.id === userId);
     } else {
-      throw new Error(GetUserErrorsCode.Invalid);
+      throw Error(GetUserErrorsCode.Invalid);
     }
   } else {
-    throw new Error(GetUserErrorsCode.NotFound);
+    throw Error(GetUserErrorsCode.NotFound);
   }
 };
