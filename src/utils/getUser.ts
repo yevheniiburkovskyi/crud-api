@@ -1,5 +1,5 @@
 import { GetUserErrorsCode } from '../types/errors';
-import { User } from 'types/user';
+import { User } from '../types/user';
 import { validate } from 'uuid';
 
 export const getUser = (path: string, userData: User[]) => {
