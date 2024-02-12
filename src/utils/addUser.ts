@@ -1,4 +1,4 @@
-import { AddUserErrorsCode } from '../types/errors';
+import { ErrorCodes } from '../types/errors';
 import { User, isUserData } from '../types/user';
 import { v4 as uuidv4 } from 'uuid';
 import fsp from 'fs/promises';
@@ -17,6 +17,6 @@ export const addUser = async (userData: User, usersData: User[]): Promise<User> 
 
     return user;
   } else {
-    throw Error(AddUserErrorsCode.Invalid);
+    throw Error(ErrorCodes.Invalid);
   }
 };

@@ -1,4 +1,4 @@
-import { GetUserErrorsCode } from '../types/errors';
+import { ErrorCodes } from '../types/errors';
 import { User } from '../types/user';
 import { validate } from 'uuid';
 
@@ -9,9 +9,9 @@ export const getUser = (path: string, userData: User[]) => {
     if (validate(userId)) {
       return userData.find((item) => item.id === userId);
     } else {
-      throw Error(GetUserErrorsCode.Invalid);
+      throw Error(ErrorCodes.Invalid);
     }
   } else {
-    throw Error(GetUserErrorsCode.NotFound);
+    throw Error(ErrorCodes.NotFound);
   }
 };
