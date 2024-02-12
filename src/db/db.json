@@ -6,15 +6,9 @@
     "hobbies": ["tattoo", "coffe", "tik-tok"]
   },
   {
-    "username": "Eugene",
-    "age": 22,
-    "hobbies": ["porgramming", "games", "drink"],
-    "id": "fbf44e2d-a0ac-420f-8a5e-15c6f1895949"
-  },
-  {
     "username": "Yuri",
     "age": 22,
-    "hobbies": ["porgramming", "dick", "drink"],
-    "id": "71126810-ceae-46cf-9e49-c8c3249b6091"
+    "hobbies": ["porgramming", "social", "drink"],
+    "id": "e8157eb1-304a-40f8-a8d1-968d41503011"
   }
 ]

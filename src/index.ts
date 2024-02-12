@@ -4,9 +4,10 @@ import fsp from 'fs/promises';
 import path from 'path';
 import { User } from './types/user';
 import { getUser } from './utils/getUser';
-import { isAddUserErrorCode, isGetUserErrorCode } from './types/errors';
-import { ADD_USER_STATUSES, GET_USER_STATUSES } from './constants/constants';
+import { isUserErrorCode } from './types/errors';
+import { ADD_USER_STATUSES, DELETE_USER_STATUSES, GET_USER_STATUSES } from './constants/constants';
 import { addUser } from './utils/addUser';
+import { deleteUser } from './utils/deleteUser';
 
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url ?? '', true);
@@ -31,7 +32,7 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(getUser(requestPath, usersData)));
       } catch (error) {
-        if (error instanceof Error && isGetUserErrorCode(error.message)) {
+        if (error instanceof Error && isUserErrorCode(error.message)) {
           res.writeHead(+error.message, { 'Content-Type': 'application/json' });
           res.end(GET_USER_STATUSES[error.message]);
         }
@@ -50,15 +51,28 @@ const server = http.createServer(async (req, res) => {
 
       req.on('end', async () => {
         try {
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.writeHead(201, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify(await addUser(JSON.parse(body), usersData)));
         } catch (error) {
-          if (error instanceof Error && isAddUserErrorCode(error.message)) {
+          if (error instanceof Error && isUserErrorCode(error.message)) {
             res.writeHead(+error.message, { 'Content-Type': 'application/json' });
             res.end(ADD_USER_STATUSES[error.message]);
           }
         }
       });
+
+      break;
+
+    case method === 'DELETE' && requestPath && requestPath.startsWith('/api/users/'):
+      try {
+        res.writeHead(204, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(await deleteUser(requestPath, usersData)));
+      } catch (error) {
+        if (error instanceof Error && isUserErrorCode(error.message)) {
+          res.writeHead(+error.message, { 'Content-Type': 'application/json' });
+          res.end(DELETE_USER_STATUSES[error.message]);
+        }
+      }
 
       break;
     default:

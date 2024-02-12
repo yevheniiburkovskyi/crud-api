@@ -7,7 +7,12 @@ export const getUser = (path: string, userData: User[]) => {
 
   if (userId) {
     if (validate(userId)) {
-      return userData.find((item) => item.id === userId);
+      const user = userData.find((item) => item.id === userId);
+
+      if (user) {
+        return user;
+      }
+      throw Error(ErrorCodes.NotFound);
     } else {
       throw Error(ErrorCodes.Invalid);
     }
